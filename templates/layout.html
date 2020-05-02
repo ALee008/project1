@@ -2,28 +2,67 @@
     <head>
         <title>{% block title %} Stuff here {% endblock %}</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-        <link rel="stylesheet" href="static/style.css">
+        <link rel="stylesheet" href="static/navigation_bar.css">
     </head>
     <body>
-        <div class="container">
-            <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="{{ url_for('index') }}">Home</a>
-            <a class="navbar-brand" href="{{ url_for('search') }}">Search</a>
-            {% if session.get('username') %}
-            <a class="navbar-brand" href="{{ url_for('my_reviews') }}">My Reviews</a>
-            <a class="navbar-brand" href="{{ url_for('logout') }}">Logout</a>
-            {% else %}
-            <a class="navbar-brand" href="{{ url_for('login') }}" type="submit">Login</a>
-            {% endif %}
-            <form>
-                {% if not session.get('username') %}
-                <a class="btn btn-outline-success my-2 my-sm-0" type="submit"
-                   href="{{ url_for('register') }}">Register</a>
-                {% endif %}
-            </form>
+    <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">Book Reviews</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('index') }}">Home
+                <span class="sr-only">(current)</span>
+              </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('search') }}">Search</a>
+        </li>
+          {% if session.get('username') %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('my_reviews') }}">My Reviews</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        </li>
+          {% else %}
+          <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+        </li>
+          {% endif %}
+          {% if not session.get('username') %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+        </li>
+          {% endif %}
+      </ul>
+    </div>
+  </div>
 </nav>
-            {% block body %}
-            {% endblock %}
-        </div>
+    {% block body %}
+    {% endblock %}
     </body>
+<header class="masthead">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">
+        <h1 class="font-weight-light" style="color:black">Vertically Centered Masthead Content</h1>
+        <p class="lead" style="color:black">A great starter layout for a landing page</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Page Content -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="font-weight-light">Page Content</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>
+  </div>
+</section>
+
 </html>
