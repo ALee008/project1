@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %} {{ title }} {% endblock %}
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    </head>
+    <body>
+    {% block body %}
+    <h1>{{ title }}</h1>
+        <div class="container">
+            <ul>
+                <li>Title: <i>{{ title }}</i></li>
+                <li>Author: <i>{{ author }}</i></li>
+                <li>Year: <i>{{ year }}</i></li>
+                <li>ISBN: <i>{{ isbn }}</i></li>
+                <li>Review Count: <b>{{ review_count }}</b></li>
+                <li>Average User Rating: <b>{{ average_rating }}</b></li>
+                <li>Goodreads Review Count: <b>{{ gr_number_ratings }}</b></li>
+                <li>Average Goodreads Rating: <b>{{ gr_average_rating }}</b></li>
+            </ul>
+        </div>
+    <form action="{{url_for('add_review')}}" method="post">
+        <button>Write a book review -></button>
+    </form>
+    <h3>{{ message }}</h3>
+        <div class="container">
+            {% for name, title, text, rating in reviews %}
+            <ul>
+                <li><b>{{ title }}</b> - <small>by {{ name }} </small>Rating: {{ rating }}
+                <details>
+                    <summary>
+                        Collapse for full review.
+                    </summary>
+                    <p> {{ text }} </p>
+                </details>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+    </body>
+{% endblock %}
+</html>

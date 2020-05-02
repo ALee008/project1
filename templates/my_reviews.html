@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}My Reviews{% endblock %}
+<body>
+{% block body %}
+    {% for title, review, rating, book, author, isbn in reviews %}
+    <p><i>{{ book }}</i>,  {{ author }} - ISBN: {{ isbn }}, {{ title }} - Your Rating: {{ rating }}</p>
+    <details>
+        <summary>
+            Full review
+        </summary>
+        <p> {{ review }} </p>
+    </details>
+    {% endfor %}
+{% endblock %}
+</body>

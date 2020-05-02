@@ -1,0 +1,116 @@
+/* set margins for spacing */
+#footer, p, nav {
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+@media (min-width: 800px) {
+  table {
+    display: inline-block;
+    width: 25%;
+  }
+}
+@media (max-width: 799px) {
+  table {
+    display: block;
+  }
+}
+/* nested table properties */
+table {
+  margin-top: 30px;
+  margin-left: 6%;
+}
+table th {
+  color: white;
+  background-color: #377BB3;
+  padding: 5px 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+table td {
+  text-align: justify;
+  color: #377BB3;
+  padding: 22px;
+}
+
+nav {
+  margin-top: 12px;
+}
+
+/* add tag 'a' to use button with href */
+a button {
+  color: white;
+  background-color: #377BB3;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  padding: 15px 32px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: #FFC736;
+  color: white;
+}
+
+/* add center class to center image */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+
+h6 {
+  text-align: center;
+  color: #646464;
+}
+
+p {
+  color: #646464;
+  margin-top: 20px;
+}
+
+div > p {
+  text-align: justify;
+  font-style: italic;
+}
+
+ul {
+  color: #646464;
+  list-style-type: square;
+  margin-left: 5%;
+}
+
+#footer {
+  position: absolute;
+  bottom: auto;
+  width: 90%;
+  height: 60px;
+  /* Height of the footer */
+  background-color: #E8E8E8;
+  color: #646464;
+  padding: 20px 15px;
+}
+
+/* extend bootstrap class row*/
+.row {
+  clear: both;
+  /* add this line to make avatar right aligned without(!) floating */
+  padding: 15px;
+  font-style: italic;
+}
+
+#avatar {
+  display: block;
+  float: right;
+  /* add this line to make avatar right aligned */
+  border-radius: 50%;
+  width: 200px;
+  margin-right: 5%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+/*# sourceMappingURL=style.css.map */

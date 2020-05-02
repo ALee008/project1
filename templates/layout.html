@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>{% block title %} Stuff here {% endblock %}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Home</a>
+            <a class="navbar-brand" href="{{ url_for('search') }}">Search</a>
+            {% if session.get('username') %}
+            <a class="navbar-brand" href="{{ url_for('my_reviews') }}">My Reviews</a>
+            <a class="navbar-brand" href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+            <a class="navbar-brand" href="{{ url_for('login') }}" type="submit">Login</a>
+            {% endif %}
+            <form>
+                {% if not session.get('username') %}
+                <a class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                   href="{{ url_for('register') }}">Register</a>
+                {% endif %}
+            </form>
+</nav>
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
