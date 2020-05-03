@@ -1,5 +1,4 @@
 import os
-import json
 
 from flask import Flask, session, render_template, request, redirect, url_for, flash, jsonify
 from flask_session import Session
@@ -26,6 +25,17 @@ Session(app)
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
+
+def login_required(func):
+    @functools.wraps(func)
+    def wrap(*args, **kwargs):
+        if session.get("logged_in"):
+            return func(*args, **kwargs)
+        else:
+            return render_template("message_for_user.html", title="Info", message="You must login first.")
+
+    return wrap
+
 
 
 @app.route("/")
@@ -76,7 +86,8 @@ def commit_login():
         session['user_id'] = db.execute("SELECT user_id FROM users WHERE name = :name", {"name": name}).fetchone()[0]
         session['username'] = name
         session['logged_in'] = True
-        return render_template("message_for_user.html", title="Success", message="Login successful.")
+        return render_template("message_for_user.html", title="Success",
+                               message="Login successful. You can now search books and view your submitted reviews.")
     else:
         return render_template("message_for_user.html", title="Error", message="Incorrect password.")
 
@@ -132,7 +143,7 @@ def get_books():
     return render_template("search.html", search_results=search_results)
 
 
-@app.route("/layout_books/<string:isbn>")
+@app.route("/layout_books/<isbn>")
 @project_tools.login_required
 def layout_books(isbn):
     # TODO: lookup usage
@@ -169,11 +180,15 @@ def layout_books(isbn):
                            message=message,
                            reviews=reviews)
 
+
 @app.route("/add_review", methods=["POST"])
+@project_tools.login_required
 def add_review():
     return render_template("add_review.html")
 
+
 @app.route("/submit_review", methods=["POST"])
+@project_tools.login_required
 def submit_review():
     title = request.form.get("title")
     rating = request.form.get("rating")
@@ -200,6 +215,7 @@ def submit_review():
 
     return render_template("message_for_user.html", title="Thank you {}!".format(session['username'])
                            , message="Your review has been added successfully.")
+
 
 @app.route("/my_reviews", methods=["GET"])
 @project_tools.login_required

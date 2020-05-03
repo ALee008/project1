@@ -1,5 +1,5 @@
 import functools
-from flask import session, flash, url_for, redirect, render_template
+from flask import session, render_template
 
 
 def login_required(func):

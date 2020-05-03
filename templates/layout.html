@@ -5,8 +5,9 @@
         <link rel="stylesheet" href="static/navigation_bar.css">
     </head>
     <body>
+    <head><h1>{% block head %} {% endblock %}</h1></head>
     <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+<nav class="navbar navbar-expand-lg navbar-custom shadow fixed-top">
   <div class="container">
     <a class="navbar-brand" href="{{ url_for('index') }}">Book Reviews</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,23 +47,4 @@
     {% block body %}
     {% endblock %}
     </body>
-<header class="masthead">
-  <div class="container h-100">
-    <div class="row h-100 align-items-center">
-      <div class="col-12 text-center">
-        <h1 class="font-weight-light" style="color:black">Vertically Centered Masthead Content</h1>
-        <p class="lead" style="color:black">A great starter layout for a landing page</p>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- Page Content -->
-<section class="py-5">
-  <div class="container">
-    <h2 class="font-weight-light">Page Content</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>
-  </div>
-</section>
-
 </html>

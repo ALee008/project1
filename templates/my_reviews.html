@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}My Reviews{% endblock %}
+{% block head %} My Reviews {% endblock %}
 <body>
 {% block body %}
     {% for title, review, rating, book, author, isbn in reviews %}

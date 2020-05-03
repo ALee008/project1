@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="static/navigation_bar.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>{% block title %} Find your Book {% endblock %}</title>
 </head>
 <body>
@@ -11,7 +9,8 @@
   <div class="search-container">
     <form action="{{ url_for('get_books') }}" method="post">
       <input type="text" placeholder="Search..." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
+        <button type="button" class="btn btn-outline-secondary btn-sm">Go!</button>
+
     </form>
       <small id="username_help" class="form-text text-muted">{{ message }}</small>
   </div>

@@ -1,13 +1,8 @@
-<!DOCTYPE html>
 {% extends "layout.html" %}
 {% block title %} {{ title }} {% endblock %}
-<html>
-    <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-    </head>
-    <body>
-    {% block body %}
-    <h1>{{ title }}</h1>
+
+{% block body %}
+<h1>{{ title }}</h1>
         <div class="container">
             <ul>
                 <li>Title: <i>{{ title }}</i></li>
@@ -20,8 +15,8 @@
                 <li>Average Goodreads Rating: <b>{{ gr_average_rating }}</b></li>
             </ul>
         </div>
-    <form action="{{url_for('add_review')}}" method="post">
-        <button>Write a book review -></button>
+    <form action="{{ url_for('add_review') }}" method="post">
+        <button class="btn btn-warning btn-sm">Write a book review -></button>
     </form>
     <h3>{{ message }}</h3>
         <div class="container">
@@ -38,6 +33,4 @@
             </ul>
             {% endfor %}
         </div>
-    </body>
 {% endblock %}
-</html>
