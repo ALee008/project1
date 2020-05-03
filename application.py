@@ -207,10 +207,10 @@ def submit_review():
     rating = request.form.get("rating")
     review = request.form.get("review")
 
-    if title is None:
+    if title is None or title.strip() == '':
         return render_template("message_for_user.html", title="Please add a title."
                                , message="Use back in your browser to return to form.")
-    if rating is None or rating == '':
+    if rating is None or rating.strip() == '':
         return render_template("message_for_user.html", title="Please add a rating"
                                , message="Use back in your browser to return to form.")
     # TODO: allow user to edit the review.
@@ -252,7 +252,6 @@ def api(isbn: str):
         return f"ISBN {isbn} not found.", 404
     else:
         reviews = review_results.fetchall()
-        print(reviews)
         title, author, year = reviews[0][:3]
         review_count = review_results.rowcount
         average_score = sum(row[5] for row in reviews) / review_count
