@@ -45,14 +45,20 @@ def index():
 
 @app.route("/register")
 def register():
-    return render_template("register.html")
+    return render_template("register.html",
+                           message="Welcome",
+                           method="commit_register",
+                           button_label="Register",
+                           title="Register")
 
 
 @app.route("/commit_register", methods=["POST"])
 def commit_register():
     name = request.form.get("username")
     if db.execute("SELECT name FROM users WHERE name = :name", {"name": name}).rowcount == 1:
-        return f"Username {name} already exists."
+        return render_template("message_for_user.html",
+                               title="Oops...",
+                               message=f"User {name} already exists.")
     try:
         user_input_pw_hash = hash_pw(request.form.get("password"))
     except ValueError as v:
@@ -61,12 +67,17 @@ def commit_register():
     db.execute("INSERT INTO users (name, password) VALUES (:name, :password)", {"name": name,
                                                                                 "password": user_input_pw_hash})
     db.commit()
-    return render_template("message_for_user.html", title="Success", message="Thank you for your registration.")
+    return render_template("message_for_user.html", title="Success",
+                           message="Thank you for your registration. Please log in to use our features.")
 
 
 @app.route("/login", methods=["GET"])
 def login():
-    return render_template("login.html", link="commit_login")
+    return render_template("login.html",
+                           message="Welcome",
+                           method="commit_login",
+                           button_label="Sign In",
+                           title="Login")
 
 
 @app.route("/commit_login", methods=["POST"])
@@ -77,7 +88,8 @@ def commit_login():
         return render_template("message_for_user.html", title="Error", message="Password is empty.")
 
     if db.execute("SELECT * FROM users WHERE name = :name", {"name": name}).rowcount == 0:
-        return render_template("message_for_user.html", title="Error", message="User not found.")
+        return render_template("message_for_user.html", title="Oops..."
+                               , message="User name not found. If you're new, consider registering to our site.")
 
     # returns sqlalchemy RowProxy
     db_pw_hash = db.execute("SELECT password FROM users WHERE name = :name", {"name": name}).fetchone()
@@ -86,10 +98,11 @@ def commit_login():
         session['user_id'] = db.execute("SELECT user_id FROM users WHERE name = :name", {"name": name}).fetchone()[0]
         session['username'] = name
         session['logged_in'] = True
-        return render_template("message_for_user.html", title="Success",
+        return render_template("message_for_user.html", title=f"Welcome {name}!",
                                message="Login successful. You can now search books and view your submitted reviews.")
     else:
-        return render_template("message_for_user.html", title="Error", message="Incorrect password.")
+        return render_template("message_for_user.html", title="Oops...",
+                               message="Incorrect password.")
 
 
 @app.route('/logout')
