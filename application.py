@@ -146,7 +146,7 @@ def get_books():
 @app.route("/layout_books/<isbn>")
 @project_tools.login_required
 def layout_books(isbn):
-    # TODO: lookup usage
+    # set 'globally' to later use in submit_review
     session["isbn"] = isbn
     message = ""
     reviews = list()
