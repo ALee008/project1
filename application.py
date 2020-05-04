@@ -46,7 +46,7 @@ def index():
 @app.route("/register")
 def register():
     return render_template("register.html",
-                           message="Welcome",
+                           message="Registration",
                            method="commit_register",
                            button_label="Register",
                            title="Register")
