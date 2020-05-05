@@ -1,4 +1,5 @@
 import os
+import functools
 
 from flask import Flask, session, render_template, request, redirect, url_for, flash, jsonify
 from flask_session import Session
@@ -25,6 +26,7 @@ Session(app)
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
+
 
 def login_required(func):
     @functools.wraps(func)
