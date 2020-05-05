@@ -1,6 +1,52 @@
 {% extends "layout.html" %}
 {% block title %} {{ title }} {% endblock %}
+{% block style %}
+.navbar-custom {
+    background-color: #D3C0B9;
+}
+/* Modify brand and text color */
 
+.navbar-custom .navbar-brand {
+    color: #292241;
+    font-weight: bold;
+}
+
+.nav-link {
+    color: #292241;
+}
+
+.lead {
+    background-color: white;
+    border-radius:10px;
+    color: #292241;
+}
+
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url(books.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+nav {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+body {
+    padding-top: 70px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+div > p {
+  text-align: justify;
+  font-style: italic;
+  padding: 15px;
+}
+{% endblock %}
 {% block body %}
 <h1>{{ title }}</h1>
         <div class="container">
