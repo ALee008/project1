@@ -230,20 +230,21 @@ def my_reviews():
 
 
 @app.route("/api/<string:isbn>", methods=["GET"])
-@project_tools.login_required
 def api(isbn: str):
-    review_results = db.execute("SELECT b.title, a.name, b.year, b.isbn, r.title, r.rating "
-                        "FROM book_details b JOIN authors a ON b.author_id=a.author_id "
-                        "JOIN reviews r ON b.isbn=r.isbn "
-                        "WHERE b.isbn= :isbn", {"isbn": isbn})
-
-    if review_results.rowcount == 0:
+    isin_exists = db.execute('SELECT isbn FROM book_details WHERE isbn=:isbn', {"isbn": isbn})
+    if isin_exists.rowcount == 0:
         return render_template("message_for_user.html", title="Error 404", message=f"ISBN {isbn} not found."), 404
-    else:
-        reviews = review_results.fetchall()
-        title, author, year = reviews[0][:3]
-        review_count = review_results.rowcount
-        average_score = sum(row[5] for row in reviews) / review_count
+
+    review_results = db.execute('SELECT b.title, a.name, b.year, b.isbn, r.title, COALESCE(r.rating, 0) "rating" '
+                                'FROM book_details b JOIN authors a ON b.author_id=a.author_id '
+                                'LEFT JOIN reviews r ON b.isbn=r.isbn '
+                                'WHERE b.isbn=:isbn', {"isbn": isbn})
+
+    reviews = review_results.fetchall()
+    print(reviews)
+    title, author, year = reviews[0][:3]
+    review_count = sum(row for row in reviews if row[4] is not None)
+    average_score = sum(row[-1] for row in reviews) / review_results.rowcount
 
     return jsonify(title=title,
                    author=author,
