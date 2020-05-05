@@ -238,7 +238,7 @@ def api(isbn: str):
                         "WHERE b.isbn= :isbn", {"isbn": isbn})
 
     if review_results.rowcount == 0:
-        return f"ISBN {isbn} not found.", 404
+        return render_template("message_for_user.html", title="Error 404", message=f"ISBN {isbn} not found."), 404
     else:
         reviews = review_results.fetchall()
         title, author, year = reviews[0][:3]
