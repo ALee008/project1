@@ -202,7 +202,7 @@ def submit_review():
     if rating is None or rating.strip() == '':
         return render_template("message_for_user.html", title="Please add a rating"
                                , message="Use back in your browser to return to form.")
-    # TODO: allow user to edit the review.
+    # TODO; Possible Feature: allow user to edit the review.
     if db.execute("SELECT * FROM reviews WHERE user_id = :user_id AND isbn = :isbn",
                   {"user_id": session["user_id"], "isbn": session["isbn"]}
                   ).rowcount == 0:
@@ -241,9 +241,9 @@ def api(isbn: str):
                                 'WHERE b.isbn=:isbn', {"isbn": isbn})
 
     reviews = review_results.fetchall()
-    print(reviews)
     title, author, year = reviews[0][:3]
-    review_count = sum(row for row in reviews if row[4] is not None)
+    # add review count only if one exists
+    review_count = len([row for row in reviews if row[4] is not None])
     average_score = sum(row[-1] for row in reviews) / review_results.rowcount
 
     return jsonify(title=title,

@@ -16,6 +16,11 @@ def get_review_counts(isbns) -> list:
         isbns = ','.join(isbns)
     res = requests.get("https://www.goodreads.com/book/review_counts.json",
                        params={"key": api_key, "isbns": isbns})
+    if res.status_code == 404:
+        err = list()
+        err.append(dict(average_rating=0, work_ratings_count=0))
+        return err
+
     return res.json()['books']
 
 
