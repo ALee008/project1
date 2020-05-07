@@ -109,7 +109,7 @@ def check_pw(pw_hash: str, candidate: str) -> bool:
 
 def hash_pw(password: str) -> str:
     bcrypt = Bcrypt(app)
-    # decode in because of Python 3
+    # decode because of Python 3
     pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
     return pw_hash
