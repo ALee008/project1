@@ -27,7 +27,6 @@ project_0
 |   |   login.html
 |   |   message_for_user.html
 |   |   my_reviews.html
-|   |   nav_bar.html
 |   |   register.html
 |   |   search.html
 |
@@ -36,7 +35,6 @@ project_0
 │   │   login.css
 |   |   navigation_bar.css
 |   |   style.css
-|   |   workaround.css
 │
 └───sqls
 │   │   ddl_book_reviews.sql
@@ -64,11 +62,20 @@ The html Templates
 ---
 `layout.html` is the parent template that all pages import to incorporate the navigation bar, padding and margins. 
 `login.html` and `register.html` inherit additional formatting from `layout_credentials.html`. `message_for_user.html` 
-serves as a template for a page that informs users about different event like 'login successful', etc.  
+serves as a template for a page that informs users about different events like 'login successful', etc.  
 
 Further html files
 ---
-`index.html` is the starting page. It contains a background image and a text field.
+`index.html` is the starting page. It contains a background image and a text field. 
+
+The adding review page is implemented in `add_review.html`. It contains a mandatory drop down for the rating and 
+mandatory text form for a review title. The user can add a detailed review in the text area up to 4000 characters.
+
+The book details are implemented as an unordered list in `layout_books.html`. It also incorporates an overview of 
+already submitted reviews. Because of a weired formatting problem (see below in subsection _html formatting problems_) 
+I had to add a _workaround_ in form of hardwired style formatting.
+
+The `my_reviews.html` is for the presentation of the reviews already submitted. 
 
 Further Remarks
 ---
@@ -79,9 +86,10 @@ database’s operation and not necessarily under the control of the programmer",
 
 #### html formatting problems
 In `search.html` the book details page is referenced by an `href` link. My first attempt was using dynamic routing where
-isbn is the parameter to find the book details. But for some reasons which I could not figure out the locally linked 
+isbn is the parameter to find the book details. But for some reasons, which I could not figure out, the locally linked 
 css file was not correctly imported in `layout_books.html`. I have posted the problem on 
 [stackoverflow](https://stackoverflow.com/questions/61573835/flask-dynamic-routing-causes-render-template-to-ignore-jinjer2-html-formattin/61574077?noredirect=1#comment108939850_61574077) 
 and [r/cs50](https://www.reddit.com/r/cs50/comments/gcxu0e/cs50s_web_programming_with_python_and_javascript/) 
 unfortunately without success. I would appreciate your feedback on this matter if you have any idea that causes this
-problem.
+problem. It can be recreated by calling the api with an isbn that does not exist. `message_for_user.html` is called, but
+formatting is broken.
